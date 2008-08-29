@@ -1,3 +1,4 @@
+
 <ul>
   <li>Module : <%=h git_rev.repo %></li>
   <li>Branch : <%=h git_rev.ref %></li>
@@ -12,4 +13,6 @@
 
 <pre><%=h git_rev.diff_stat %></pre>
 
-<pre><%=h git_rev.diff_format_patch %></pre>
+<div style="font-size:13px;background-color:#f1f1f3;color: #112;">
+  <%= git_rev.diff_format_coloring %>
+</div>

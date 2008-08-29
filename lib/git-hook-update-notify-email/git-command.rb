@@ -1,3 +1,6 @@
+require 'git-hook-update-notify-email/convertors/mail_html'
+
+
 module GitHookUpdateNotifyEmail
   class GitRevision
 
@@ -25,6 +28,12 @@ module GitHookUpdateNotifyEmail
 
     def diff_format_patch
       `git-diff-tree -p -M --no-commit-id #{@sha1}`
+    end
+
+    def diff_format_coloring
+      diff = diff_format_patch
+      convertor = Syntax::Convertors::MailHTML.for_syntax "ruby"
+      convertor.convert(diff)
     end
 
     def get_repo
