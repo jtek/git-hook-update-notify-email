@@ -16,8 +16,8 @@ module GitHookUpdateNotifyEmail
     def self.get_all_revision(refname,old_sha1, new_sha1)
       all_revision = []
       a = `git-rev-list ^#{old_sha1} #{new_sha1}`
-      a.split('\n').each do |sha1|
-        all_revision << GitRevision.new(sha1.chomp, refname)
+      a.split("\n").each do |sha1|
+        all_revision << GitRevision.new(sha1, refname)
       end
       all_revision
     end
