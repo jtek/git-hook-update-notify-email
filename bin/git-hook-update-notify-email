@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+
+$:.unshift File.dirname(__FILE__) + '/../lib'
+require 'git-hook-update-notify-email'
+
+include GitHookUpdateNotifyEmail
+
+refname = ARGV[0]
+old_sha1 = ARGV[1]
+new_sha1 = ARGV[2]
+#ActionMailer::Base.template_root = File.dirname(__FILE__) + '/../view'
+ActionMailer::Base.delivery_method = :sendmail
+git_rev = GitRevision.get_all_revision(old_sha1, new_sha1)
+git_rev.each do |rev|
+  GitDiffMail.deliver_git_diff_mail(rev)
+end
+#!vim: syntax
