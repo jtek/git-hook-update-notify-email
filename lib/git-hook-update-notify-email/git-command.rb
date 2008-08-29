@@ -1,28 +1,36 @@
 module GitHookUpdateNotifyEmail
   class GitRevision
 
-    attr_reader :sha1, :author, :committer, :tagger, :log
+    attr_reader :sha1, :author, :committer, :tagger, :log, :repo, :ref
 
-    def initialize(sha1)
+    def initialize(sha1, ref)
       @sha1 = sha1
+      @ref = ref
       git_cat_file
+      get_repo
     end
     
-    def self.get_all_revision(old_sha1, new_sha1)
+    def self.get_all_revision(refname,old_sha1, new_sha1)
       all_revision = []
       a = `git-rev-list ^#{old_sha1} #{new_sha1}`
       a.split('\n').each do |sha1|
-        all_revision << GitRevision.new(sha1.chomp)
+        all_revision << GitRevision.new(sha1.chomp, refname)
       end
       all_revision
     end
 
-    def get_diff_stat
+    def diff_stat
       `git-diff-tree --stat -M --no-commit-id #{@sha1}`
     end
 
-    def get_diff_format_patch
+    def diff_format_patch
       `git-diff-tree -p -M --no-commit-id #{@sha1}`
+    end
+
+    def get_repo
+      repo = File.expand_path `git-rev-parse --git-dir`.chomp
+      repo = repo[/(.*?)((\.git\/)?\.git)$/, 1]
+      @repo = File.basename(repo)
     end
 
     def type
@@ -30,13 +38,10 @@ module GitHookUpdateNotifyEmail
     end
     
     def git_cat_file
-      p type
-      p @sha1
       @log = []
       a = `git-cat-file #{type} #{@sha1}`
       do_log = false
       a.split("\n").each do |line|
-        p line
         (do_log = true; next) if line =~ /^$/
         if line =~ /^(author|committer|tagger) (.*)(<.*>) (\d+) ([+-]\d+)$/
           person = {}
@@ -57,11 +62,10 @@ module GitHookUpdateNotifyEmail
         end
 
         if do_log
+          break if line =~ /^-----BEGIN PGP SIGNATURE-----/
           @log << line
         end
       end
-
-      p @log
       @log = @log.join("\n")
     end
   end

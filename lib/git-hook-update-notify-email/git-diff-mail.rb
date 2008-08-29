@@ -5,7 +5,6 @@ module GitHookUpdateNotifyEmail
 
 
     def git_diff_mail(git_rev)
-      p git_rev
       email_builder = ActionView::Base.new
       recipients 'cyril.mougel@jtek.fr'
       from 'cyril.mougel@jtek.fr'
