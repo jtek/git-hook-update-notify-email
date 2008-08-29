@@ -1,0 +1,9 @@
+delivery_method: :smtp #Define the delivery method, like sendmail or smtp. If you use sendmail, the follow is useless
+smtp_settings:
+  address: smtp.example.net #Allows you to use a remote mail server. Just change it from its default "localhost" setting.
+  port: 25 #On the off chance that your mail server doesn‘t run on port 25, you can change it.
+  domain: example.net #If you need to specify a HELO domain, you can do it here.
+  authentication: :login #If your mail server requires authentication, you need to specify the authentication type here. This is a symbol and one of :plain, :login, :cram_md5
+  user_name: username@domain.com #If your mail server requires authentication, set the username in this setting.
+  password: mypassword #If your mail server requires authentication, set the password in this setting.
+  from: from@domain.com #Define the email who send all mail in from header

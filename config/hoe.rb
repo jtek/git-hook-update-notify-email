@@ -9,6 +9,7 @@ HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 EXTRA_DEPENDENCIES = [
   ['activesupport', '>= 2.1.0'],
+  ['trollop', '>= 1.9.0'],
   ['syntax', '>= 1.0.0'],
 ]    # An array of rubygem dependencies [name, version]
 

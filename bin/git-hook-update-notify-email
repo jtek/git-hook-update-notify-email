@@ -3,14 +3,28 @@
 
 $:.unshift File.dirname(__FILE__) + '/../lib'
 require 'git-hook-update-notify-email'
+require 'trollop'
 
 include GitHookUpdateNotifyEmail
 
 refname = ARGV[0]
 old_sha1 = ARGV[1]
 new_sha1 = ARGV[2]
-#ActionMailer::Base.template_root = File.dirname(__FILE__) + '/../view'
-ActionMailer::Base.delivery_method = :sendmail
+
+opts = Trollop::options do
+  opt :config, "The config file to ActionMailer", :type => String
+end
+
+unless opts[:config].nil?
+  mailconfig = YAML::load_file(ops[:config])
+  mailconfig.each do |k, v|
+    v.symbolize_keys! if v.respond_to?(:symbolize_keys!)
+    ActionMailer::Base.send("#{k}=", v)
+  end
+else
+  ActionMailer::Base.delivery_method = :sendmail
+end
+
 git_rev = GitRevision.get_all_revision(refname, old_sha1, new_sha1)
 git_rev.each do |rev|
   GitDiffMail.deliver_git_diff_mail(rev)
