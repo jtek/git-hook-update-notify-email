@@ -81,6 +81,10 @@ module Syntax
             'color: #227;'
           when :escape
             'color: #277;'
+          when :add
+            'background-color: yellow;'
+          when :del
+            'background-color: red;'
           else
             ''
           end

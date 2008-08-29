@@ -1,4 +1,5 @@
 require 'git-hook-update-notify-email/convertors/mail_html'
+require 'git-hook-update-notify-email/lang/git-diff'
 
 
 module GitHookUpdateNotifyEmail
@@ -32,7 +33,7 @@ module GitHookUpdateNotifyEmail
 
     def diff_format_coloring
       diff = diff_format_patch
-      convertor = Syntax::Convertors::MailHTML.for_syntax "ruby"
+      convertor = Syntax::Convertors::MailHTML.for_syntax "git-diff"
       convertor.convert(diff)
     end
 
