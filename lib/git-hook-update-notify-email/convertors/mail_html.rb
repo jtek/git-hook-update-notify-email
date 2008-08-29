@@ -62,7 +62,7 @@ module Syntax
           when :symbol
             'color: #099;'
           when :string
-            'color: #944; background: #FFE;'
+            'color: #944;'
           when :char
             'color: #F07;'
           when :ident
@@ -70,7 +70,7 @@ module Syntax
           when :constant
             'color: #07F;'
           when :regex
-            'color: #B66; background: #FEF;'
+            'color: #B66;'
           when :number
             'color: #F99;'
           when :attribute
@@ -82,9 +82,9 @@ module Syntax
           when :escape
             'color: #277;'
           when :add
-            'background-color: yellow;'
+            'background: yellow;'
           when :del
-            'background-color: red;'
+            'background: red;'
           else
             ''
           end
