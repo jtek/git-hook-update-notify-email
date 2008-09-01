@@ -8,6 +8,7 @@ RUBYFORGE_PROJECT = 'git-hook-update-notify-email' # The unix name for your proj
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 EXTRA_DEPENDENCIES = [
+  ['actionmailer', '>= 2.1.0'],
   ['activesupport', '>= 2.1.0'],
   ['trollop', '>= 1.9.0'],
   ['syntax', '>= 1.0.0'],
