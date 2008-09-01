@@ -7,19 +7,23 @@ module GitHookUpdateNotifyEmail
 
     attr_reader :sha1, :author, :committer, :tagger, :log, :repo, :ref
 
-    def initialize(sha1, ref, style=File.join(File.dirname(__FILE__), '..', '..', 'style/default.yaml'))
+    def initialize(sha1, ref, style)
+      if style.nil?
+        @style = YAML::load_file(File.join(File.dirname(__FILE__), '..', '..', 'style/default.yaml'))
+      else
+        @style = YAML::load_file(style)
+      end
       @sha1 = sha1
       @ref = ref
-      @style = YAML::load_file(style)
       git_cat_file
       get_repo
     end
     
-    def self.get_all_revision(refname,old_sha1, new_sha1)
+    def self.get_all_revision(refname,old_sha1, new_sha1, style)
       all_revision = []
       a = `git-rev-list ^#{old_sha1} #{new_sha1}`
       a.split("\n").each do |sha1|
-        all_revision << GitRevision.new(sha1, refname)
+        all_revision << GitRevision.new(sha1, refname, style)
       end
       all_revision
     end
