@@ -13,6 +13,6 @@
 
 <pre><%=h git_rev.diff_stat %></pre>
 
-<div style="font-size:13px;background-color:#f1f1f3;color: #112;">
+<div style="<%= git_rev.background_color %>">
   <%= git_rev.diff_format_coloring %>
 </div>

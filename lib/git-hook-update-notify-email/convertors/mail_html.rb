@@ -9,7 +9,8 @@ module Syntax
       # Converts the given text to HTML, using spans to represent token groups
       # of any type but <tt>:normal</tt> (which is always unhighlighted). If
       # +pre+ is +true+, the html is automatically wrapped in pre tags.
-      def convert( text, pre=true )
+      def convert( text, style, pre=true )
+        @style = style
         html = ""
         html << "<pre>" if pre
         regions = []
@@ -46,47 +47,10 @@ module Syntax
         end
 
         def style(group)
-          case group
-          when :comment
-            'color: #005; font-style: italic;'
-          when :keyword
-            'color: #A00; font-weight: bold;'
-          when :method
-            'color: #077;'
-          when :class
-            'color: #074;'
-          when :module
-            'color: #050;'
-          when :punct
-            'color: #447; font-weight: bold;'
-          when :symbol
-            'color: #099;'
-          when :string
-            'color: #944;'
-          when :char
-            'color: #F07;'
-          when :ident
-            'color: #004;'
-          when :constant
-            'color: #07F;'
-          when :regex
-            'color: #B66;'
-          when :number
-            'color: #F99;'
-          when :attribute
-            'color: #5bb;'
-          when :global
-            'color: #7FB;'
-          when :expr
-            'color: #227;'
-          when :escape
-            'color: #277;'
-          when :add
-            'background: yellow;'
-          when :del
-            'background: red;'
+          if @style.key? group
+            @style[group]
           else
-            ''
+            ""
           end
         end
     end

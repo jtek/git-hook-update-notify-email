@@ -7,9 +7,10 @@ module GitHookUpdateNotifyEmail
 
     attr_reader :sha1, :author, :committer, :tagger, :log, :repo, :ref
 
-    def initialize(sha1, ref)
+    def initialize(sha1, ref, style=File.join(File.dirname(__FILE__), '..', '..', 'style/default.yaml'))
       @sha1 = sha1
       @ref = ref
+      @style = YAML::load_file(style)
       git_cat_file
       get_repo
     end
@@ -34,7 +35,7 @@ module GitHookUpdateNotifyEmail
     def diff_format_coloring
       diff = diff_format_patch
       convertor = Syntax::Convertors::MailHTML.for_syntax "git-diff"
-      convertor.convert(diff)
+      convertor.convert(diff, @style)
     end
 
     def get_repo
@@ -77,6 +78,10 @@ module GitHookUpdateNotifyEmail
         end
       end
       @log = @log.join("\n")
+    end
+
+    def background_color
+      @style[:background]
     end
   end
 end
