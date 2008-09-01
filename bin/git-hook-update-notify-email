@@ -7,16 +7,18 @@ require 'trollop'
 
 include GitHookUpdateNotifyEmail
 
-refname = ARGV[0]
-old_sha1 = ARGV[1]
-new_sha1 = ARGV[2]
 
 opts = Trollop::options do
   opt :config, "The config file to ActionMailer", :type => String
+  opt :to, "the list email to send mail", :type => String
 end
 
+refname = ARGV.shift
+old_sha1 = ARGV.shift
+new_sha1 = ARGV.shift
+
 unless opts[:config].nil?
-  mailconfig = YAML::load_file(ops[:config])
+  mailconfig = YAML::load_file(opts[:config])
   mailconfig.each do |k, v|
     v.symbolize_keys! if v.respond_to?(:symbolize_keys!)
     ActionMailer::Base.send("#{k}=", v)
@@ -27,6 +29,6 @@ end
 
 git_rev = GitRevision.get_all_revision(refname, old_sha1, new_sha1)
 git_rev.each do |rev|
-  GitDiffMail.deliver_git_diff_mail(rev)
+  GitDiffMail.deliver_git_diff_mail(rev, opts[:to])
 end
 #!vim: syntax

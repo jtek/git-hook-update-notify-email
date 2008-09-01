@@ -4,9 +4,9 @@ module GitHookUpdateNotifyEmail
   class GitDiffMail < ActionMailer::Base
 
 
-    def git_diff_mail(git_rev)
+    def git_diff_mail(git_rev, to)
       email_builder = ActionView::Base.new
-      recipients 'cyril.mougel@jtek.fr'
+      recipients to
       from 'cyril.mougel@jtek.fr'
       subject "[GIT-COMMIT] #{git_rev.author[:name]} : #{git_rev.log}"
       part "text/html" do |a|
