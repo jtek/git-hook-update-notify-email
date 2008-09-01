@@ -36,7 +36,7 @@ end
 REV = nil
 # UNCOMMENT IF REQUIRED:
 # REV = YAML.load(`svn info`)['Revision']
-VERS = Git-hook-update-notify-email::VERSION::STRING + (REV ? ".#{REV}" : "")
+VERS = GitHookUpdateNotifyEmail::VERSION::STRING + (REV ? ".#{REV}" : "")
 RDOC_OPTS = ['--quiet', '--title', 'git-hook-update-notify-email documentation',
     "--opname", "index.html",
     "--line-numbers",
