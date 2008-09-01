@@ -4,10 +4,17 @@ Manifest.txt
 PostInstall.txt
 README.txt
 Rakefile
+bin/git-hook-update-notify-email
+config/conf.yaml.example
 config/hoe.rb
 config/requirements.rb
 lib/git-hook-update-notify-email.rb
+lib/git-hook-update-notify-email/convertors/mail_html.rb
+lib/git-hook-update-notify-email/git-command.rb
+lib/git-hook-update-notify-email/git-diff-mail.rb
+lib/git-hook-update-notify-email/lang/git-diff.rb
 lib/git-hook-update-notify-email/version.rb
+lib/git-hook-update-notify-email/view/diff-email.html.erb
 script/console
 script/destroy
 script/generate
