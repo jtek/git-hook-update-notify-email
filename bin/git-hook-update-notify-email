@@ -12,6 +12,7 @@ opts = Trollop::options do
   version "git-hook-update-notify-email #{GitHookUpdateNotifyEmail::VERSION}"
   opt :config, "The config file to ActionMailer", :type => String
   opt :to, "the recipients list to send notification", :type => String
+  opt :from, "the sender of mail", :type => String
 end
 
 refname = ARGV.shift
@@ -32,6 +33,6 @@ Trollop::die :to, 'you need define recipients to send notification' if opts[:to]
 
 git_rev = GitRevision.get_all_revision(refname, old_sha1, new_sha1)
 git_rev.each do |rev|
-  GitDiffMail.deliver_git_diff_mail(rev, opts[:to])
+  GitDiffMail.deliver_git_diff_mail(rev, opts[:to], opts[:from])
 end
 #!vim: syntax
