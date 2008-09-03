@@ -58,7 +58,7 @@ module GitHookUpdateNotifyEmail
       do_log = false
       a.split("\n").each do |line|
         (do_log = true; next) if line =~ /^$/
-        if line =~ /^(author|committer|tagger) (.*)(<.*>) (\d+) ([+-]\d+)$/
+        if line =~ /^(author|committer|tagger) (.*)<(.*)> (\d+) ([+-]\d+)$/
           person = {}
           person[:name] = $2
           person[:email] = $3

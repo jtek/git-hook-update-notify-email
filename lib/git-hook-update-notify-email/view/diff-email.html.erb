@@ -3,7 +3,7 @@
   <li>Module : <%=h git_rev.repo %></li>
   <li>Branch : <%=h git_rev.ref %></li>
   <li>Commit : <%=h git_rev.sha1 %></li>
-  <li>Author : <%=h git_rev.author[:name] %> <%=h git_rev.author[:email] %></li>
+  <li>Author : <%=h git_rev.author[:name] %>  &lt;<%=h git_rev.author[:email] %>&gt;</li>
   <li>Date : <%=h Time.at(git_rev.author[:date].to_i).getlocal %></li>
 </ul>
 

@@ -30,7 +30,7 @@ else
   ActionMailer::Base.delivery_method = :sendmail
 end
 
-Trollop::die :to, 'you need define recipients to send notification' if opts[:to].empty?
+Trollop::die :to, 'you need define recipients to send notification' if opts[:to].nil?
 
 git_rev = GitRevision.get_all_revision(refname, old_sha1, new_sha1, opts[:style])
 git_rev.each do |rev|
