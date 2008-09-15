@@ -25,7 +25,7 @@ module GitHookUpdateNotifyEmail
       a.split("\n").each do |sha1|
         all_revision << GitRevision.new(sha1, refname, style)
       end
-      all_revision.revert
+      all_revision.reverse
     end
 
     def diff_stat
