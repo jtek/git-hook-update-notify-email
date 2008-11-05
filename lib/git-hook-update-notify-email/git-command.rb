@@ -1,5 +1,6 @@
 require 'git-hook-update-notify-email/convertors/mail_html'
 require 'git-hook-update-notify-email/lang/git-diff'
+require 'coderay'
 
 
 module GitHookUpdateNotifyEmail
@@ -38,8 +39,7 @@ module GitHookUpdateNotifyEmail
 
     def diff_format_coloring
       diff = diff_format_patch
-      convertor = Syntax::Convertors::MailHTML.for_syntax "git-diff"
-      convertor.convert(diff, @style)
+      CodeRay.scan(diff, :git_diff).git(:style => :git_hook, :css => :style, :wrap => :div)
     end
 
     def get_repo

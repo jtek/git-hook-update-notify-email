@@ -36,4 +36,5 @@ git_rev = GitRevision.get_all_revision(refname, old_sha1, new_sha1, opts[:style]
 git_rev.each do |rev|
   GitDiffMail.deliver_git_diff_mail(rev, opts[:to], opts[:from])
 end
+
 #!vim: syntax

@@ -1,6 +1,15 @@
 require 'syntax/convertors/abstract'
 
 module Syntax
+
+  class Tokenizer
+
+    def append(data)
+      @chunk << data
+    end
+
+  end
+
   module Convertors
 
     # A simple class for converting a text into HTML.
