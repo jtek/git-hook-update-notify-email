@@ -1,3 +1,9 @@
+== 0.1.0 xxxx
+
+* 2 major enhancement:
+  * Change dependance to highlight library. Not Coderay use instead of Syntax
+  * email generated 2x less big
+
 == 0.0.1 2008-08-29
 
 * 1 major enhancement:
