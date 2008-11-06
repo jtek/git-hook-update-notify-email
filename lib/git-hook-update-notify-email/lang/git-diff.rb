@@ -46,10 +46,22 @@ module Scanners
     def check_diff
       check_head_diff
       if check(/\+/)
-        @tokens << [:open, :add]
+        if @del
+          @tokens << [:close, :del]
+          @del = false
+        end
+        unless @add
+          @tokens << [:open, :add]
+        end
         @add = true
       elsif check(/-/)
-        @tokens << [:open, :del]
+        if @add
+          @tokens << [:close, :add]
+          @add = false
+        end
+        unless @del
+          @tokens << [:open, :del]
+        end
         @del = true
       else
         if @add
@@ -101,6 +113,11 @@ module Scanners
       while not eos?
         associate.tokenize scan_until(/\n/)
         check_diff
+      end
+      if @add
+        @tokens << [:close, :add]
+      elsif @del
+        @tokens << [:close, :del]
       end
       @tokens
     end
