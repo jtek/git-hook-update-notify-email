@@ -1,4 +1,3 @@
-require 'git-hook-update-notify-email/convertors/mail_html'
 require 'git-hook-update-notify-email/lang/git-diff'
 require 'coderay'
 
