@@ -29,6 +29,7 @@ module Scanners
   load :ruby
   load :html
   load :plain
+  load :c
 
   class GitDiff < Scanner
 
@@ -39,8 +40,24 @@ module Scanners
 
     def setup
       @ruby_scanner = CodeRay.scanner :ruby, :tokens => @tokens, :keep_tokens => true
+      @c_scanner = CodeRay.scanner :c, :tokens => @tokens, :keep_tokens => true
       @html_scanner = CodeRay.scanner :html, :tokens => @tokens, :keep_tokens => true, :keep_state => true
       @plain_scanner = CodeRay.scanner :plain, :tokens => @tokens, :keep_tokens => true
+    end
+
+    def associate
+      associate = {'rb' => @ruby_scanner,
+        'xml' => @html_scanner, 
+        'html' => @html_scanner,
+        'erb' => @html_scanner,
+        'c' => @c_scanner,
+        'cpp' => @c_scanner
+        'h' => @c_scanner}
+      if associate.key? @file_ext
+        associate[@file_ext]
+      else
+        @plain_scanner
+      end
     end
 
     def check_diff
@@ -93,18 +110,6 @@ module Scanners
           text = scan_until(/\n/)
       end
       @plain_scanner.tokenize text if text != ''
-    end
-
-    def associate
-      associate = {'rb' => @ruby_scanner,
-        'xml' => @html_scanner, 
-        'html' => @html_scanner,
-        'erb' => @html_scanner}
-      if associate.key? @file_ext
-        associate[@file_ext]
-      else
-        @plain_scanner
-      end
     end
 
     # Step through a single iteration of the tokenization process.
