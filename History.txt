@@ -1,4 +1,4 @@
-== 0.1.0 xxxx
+== 0.2.0 xxxx
 
 * 2 major enhancement:
   * Change dependance to highlight library. Not Coderay use instead of Syntax

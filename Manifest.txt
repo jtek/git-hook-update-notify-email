@@ -6,11 +6,9 @@ README.txt
 bin/git-hook-update-notify-email
 config/conf.yaml.example
 lib/git-hook-update-notify-email.rb
-lib/git-hook-update-notify-email/convertors/mail_html.rb
 lib/git-hook-update-notify-email/git-command.rb
 lib/git-hook-update-notify-email/git-diff-mail.rb
 lib/git-hook-update-notify-email/lang/git-diff.rb
-lib/git-hook-update-notify-email/lang/txt.rb
 lib/git-hook-update-notify-email/version.rb
 lib/git-hook-update-notify-email/view/diff-email.html.erb
 script/console

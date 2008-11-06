@@ -51,7 +51,7 @@ module Scanners
         'html' => @html_scanner,
         'erb' => @html_scanner,
         'c' => @c_scanner,
-        'cpp' => @c_scanner
+        'cpp' => @c_scanner,
         'h' => @c_scanner}
       if associate.key? @file_ext
         associate[@file_ext]
