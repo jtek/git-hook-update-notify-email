@@ -1,0 +1,4 @@
+---
+background: "color: #112;"
+add: "background-color: red;"
+del: "background-color: yellow;"

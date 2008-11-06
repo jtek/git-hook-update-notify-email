@@ -5,6 +5,7 @@ PostInstall.txt
 README.txt
 bin/git-hook-update-notify-email
 config/conf.yaml.example
+config/style.yaml.example
 lib/git-hook-update-notify-email.rb
 lib/git-hook-update-notify-email/git-command.rb
 lib/git-hook-update-notify-email/git-diff-mail.rb

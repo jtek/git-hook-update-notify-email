@@ -39,7 +39,7 @@ module GitHookUpdateNotifyEmail
 
     def diff_format_coloring
       diff = diff_format_patch
-      CodeRay.scan(diff, :git_diff).git(:style => :git_hook, :css => :style, :wrap => :div)
+      CodeRay.scan(diff, :git_diff).git(:style => :git_hook, :css => :style, :wrap => :div, :style_conf => @style)
     end
 
     def get_repo
@@ -85,7 +85,7 @@ module GitHookUpdateNotifyEmail
     end
 
     def background_color
-      @style[:background]
+      @style['background']
     end
   end
 end

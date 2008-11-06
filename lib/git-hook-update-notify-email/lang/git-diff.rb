@@ -13,12 +13,27 @@ end
 
 module CodeRay
   module Encoders
+    class HTML
+      class CSS
+        attr_accessor :classes
+      end
+    end
+
     class Git < HTML
+
+
       register_for :git
       ClassOfKind.update with = {
         :add => 'add',
         :del => 'del',
       }
+
+      def setup options
+        super
+        add_options = {}
+        options[:style_conf].each{|k,v| add_options[k] = {[] => v}}
+        @css.classes.merge!(add_options)
+      end
     end
   end
 end
