@@ -12,7 +12,7 @@ EXTRA_DEPENDENCIES = [
   ['actionmailer', '~> 2.2.2'],
   ['activesupport', '~> 2.2.2'],
   ['trollop', '>= 1.9.0'],
-  ['coderay', '~> 0.7.4'],
+  ['coderay', '~> 0.8.260'],
 ]    # An array of rubygem dependencies [name, version]
 
 @config_file = "~/.rubyforge/user-config.yml"

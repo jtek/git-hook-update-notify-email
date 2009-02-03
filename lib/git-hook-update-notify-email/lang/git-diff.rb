@@ -12,6 +12,15 @@ module CodeRay
 end
 
 module CodeRay
+    class Tokens
+      ClassOfKind.update with = {
+        :add => 'add',
+        :del => 'del',
+      }
+    end
+end
+
+module CodeRay
   module Encoders
     class HTML
       class CSS
@@ -23,10 +32,6 @@ module CodeRay
 
 
       register_for :git
-      ClassOfKind.update with = {
-        :add => 'add',
-        :del => 'del',
-      }
 
       def setup options
         super
