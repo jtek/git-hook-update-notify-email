@@ -15,6 +15,7 @@ opts = Trollop::options do
   opt :style, "A yaml file with all style in coloration", :type => String
   opt :to, "the recipients list to send notification", :type => String
   opt :from, "the sender of mail", :type => String
+  opt :project, "the name of project", :type => String
 end
 
 refname = ARGV.shift
@@ -35,7 +36,7 @@ Trollop::die :to, 'you need define recipients to send notification' if opts[:to]
 
 git_rev = GitRevision.get_all_revision(refname, old_sha1, new_sha1, opts[:style])
 git_rev.each do |rev|
-  GitDiffMail.deliver_git_diff_mail(rev, opts[:to], opts[:from])
+  GitDiffMail.deliver_git_diff_mail(rev, opts)
 end
 
 #!vim: syntax
