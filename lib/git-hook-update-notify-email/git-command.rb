@@ -1,4 +1,3 @@
-require 'git-hook-update-notify-email/convertors/mail_html'
 require 'git-hook-update-notify-email/lang/git-diff'
 require 'coderay'
 
@@ -22,7 +21,7 @@ module GitHookUpdateNotifyEmail
     
     def self.get_all_revision(refname,old_sha1, new_sha1, style)
       all_revision = []
-      a = `git-rev-list ^#{old_sha1} #{new_sha1}`
+      a = `git rev-list ^#{old_sha1} #{new_sha1}`
       a.split("\n").each do |sha1|
         all_revision << GitRevision.new(sha1, refname, style)
       end
@@ -30,11 +29,11 @@ module GitHookUpdateNotifyEmail
     end
 
     def diff_stat
-      `git-diff-tree --stat -M --no-commit-id #{@sha1}`
+      `git diff-tree --stat -M --no-commit-id #{@sha1}`
     end
 
     def diff_format_patch
-      `git-diff-tree -p -M --no-commit-id #{@sha1}`
+      `git diff-tree -p -M --no-commit-id #{@sha1}`
     end
 
     def diff_format_coloring
@@ -43,18 +42,18 @@ module GitHookUpdateNotifyEmail
     end
 
     def get_repo
-      repo = File.expand_path `git-rev-parse --git-dir`.chomp
+      repo = File.expand_path `git rev-parse --git-dir`.chomp
       repo = repo[/(.*?)((\.git\/)?\.git)$/, 1]
       @repo = File.basename(repo)
     end
 
     def type
-      @type ||= `git-cat-file -t #{@sha1}`.chomp
+      @type ||= `git cat-file -t #{@sha1}`.chomp
     end
     
     def git_cat_file
       @log = []
-      a = `git-cat-file #{type} #{@sha1}`
+      a = `git cat-file #{type} #{@sha1}`
       do_log = false
       a.split("\n").each do |line|
         (do_log = true; next) if line =~ /^$/

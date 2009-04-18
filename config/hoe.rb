@@ -9,10 +9,10 @@ HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 EXTRA_DEPENDENCIES = [
   ['RedCloth', '>= 3.0.4'],
-  ['actionmailer', '>= 2.1.0'],
-  ['activesupport', '>= 2.1.0'],
+  ['actionmailer', '~> 2.2.2'],
+  ['activesupport', '~> 2.2.2'],
   ['trollop', '>= 1.9.0'],
-  ['coderay', '>= 0.7.4'],
+  ['coderay', '~> 0.8.260'],
 ]    # An array of rubygem dependencies [name, version]
 
 @config_file = "~/.rubyforge/user-config.yml"

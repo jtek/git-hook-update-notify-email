@@ -2,6 +2,7 @@
 
 
 $:.unshift File.dirname(__FILE__) + '/../lib'
+require 'actionmailer'
 require 'git-hook-update-notify-email'
 require 'trollop'
 
@@ -14,6 +15,7 @@ opts = Trollop::options do
   opt :style, "A yaml file with all CSS styles", :type => String
   opt :to, "the recipients to send mail notifications to", :type => String
   opt :from, "mail notifitions sende", :type => String
+  opt :project, "the name of the project, added to the mail subject", :type => String
 end
 
 refname = ARGV.shift
@@ -34,7 +36,7 @@ Trollop::die :to, 'you need to define recipients to send notifications' if opts[
 
 git_rev = GitRevision.get_all_revision(refname, old_sha1, new_sha1, opts[:style])
 git_rev.each do |rev|
-  GitDiffMail.deliver_git_diff_mail(rev, opts[:to], opts[:from])
+  GitDiffMail.deliver_git_diff_mail(rev, opts)
 end
 
 #!vim: syntax

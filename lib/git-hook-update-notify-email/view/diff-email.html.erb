@@ -1,18 +1,18 @@
 
 <ul>
-  <li>Module : <%=h git_rev.repo %></li>
-  <li>Branch : <%=h git_rev.ref %></li>
-  <li>Commit : <%=h git_rev.sha1 %></li>
-  <li>Author : <%=h git_rev.author[:name] %>  &lt;<%=h git_rev.author[:email] %>&gt;</li>
-  <li>Date : <%=h Time.at(git_rev.author[:date].to_i).getlocal %></li>
+  <li>Module : <%=h @git_rev.repo %></li>
+  <li>Branch : <%=h @git_rev.ref %></li>
+  <li>Commit : <%=h @git_rev.sha1 %></li>
+  <li>Author : <%=h @git_rev.author[:name] %>  &lt;<%=h @git_rev.author[:email] %>&gt;</li>
+  <li>Date : <%=h Time.at(@git_rev.author[:date].to_i).getlocal %></li>
 </ul>
 
-<p><%=textilize git_rev.log %></p>
+<p><%=textilize @git_rev.log %></p>
 
 <p>---</p>
 
-<pre><%=h git_rev.diff_stat %></pre>
+<pre><%=h @git_rev.diff_stat %></pre>
 
-<div style="<%= git_rev.background_color %>">
-  <%= git_rev.diff_format_coloring %>
+<div style="<%= @git_rev.background_color %>">
+  <%= @git_rev.diff_format_coloring %>
 </div>
