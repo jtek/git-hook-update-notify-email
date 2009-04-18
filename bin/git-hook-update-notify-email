@@ -10,10 +10,10 @@ include GitHookUpdateNotifyEmail
 
 opts = Trollop::options do
   version "git-hook-update-notify-email #{GitHookUpdateNotifyEmail::VERSION::STRING}"
-  opt :config, "The config file to ActionMailer", :type => String
-  opt :style, "A yaml file with all style in coloration", :type => String
-  opt :to, "the recipients list to send notification", :type => String
-  opt :from, "the sender of mail", :type => String
+  opt :config, "ActionMailer config file", :type => String
+  opt :style, "A yaml file with all CSS styles", :type => String
+  opt :to, "the recipients to send mail notifications to", :type => String
+  opt :from, "mail notifitions sende", :type => String
 end
 
 refname = ARGV.shift
@@ -30,7 +30,7 @@ else
   ActionMailer::Base.delivery_method = :sendmail
 end
 
-Trollop::die :to, 'you need define recipients to send notification' if opts[:to].nil?
+Trollop::die :to, 'you need to define recipients to send notifications' if opts[:to].nil?
 
 git_rev = GitRevision.get_all_revision(refname, old_sha1, new_sha1, opts[:style])
 git_rev.each do |rev|
