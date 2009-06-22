@@ -5,7 +5,7 @@ require 'coderay'
 module GitHookUpdateNotifyEmail
   class GitRevision
 
-    attr_reader :sha1, :author, :committer, :tagger, :log, :repo, :ref
+    attr_reader :sha1, :author, :committer, :tagger, :log, :module_name, :ref
 
     def initialize(sha1, ref, style)
       if style.nil?
@@ -16,7 +16,7 @@ module GitHookUpdateNotifyEmail
       @sha1 = sha1
       @ref = ref
       git_cat_file
-      get_repo
+      get_module_name
     end
     
     def self.get_all_revision(refname,old_sha1, new_sha1, style)
@@ -41,10 +41,17 @@ module GitHookUpdateNotifyEmail
       CodeRay.scan(diff, :git_diff).git(:style => :git_hook, :css => :style, :wrap => :div, :style_conf => @style)
     end
 
-    def get_repo
-      repo = File.expand_path `git rev-parse --git-dir`.chomp
-      repo = repo[/(.*?)((\.git\/)?\.git)$/, 1]
-      @repo = File.basename(repo)
+    def get_module_name
+      repo_dir_spec = "git rev-parse --git-dir"
+      repo = File.expand_path `#{repo_dir_spec}`.chomp
+      case repo
+      when '.git', '.'
+      	@module_name = File.basename(Dir.pwd)
+      when /(.*?)((\.git\/)?\.git)$/
+        @module_name = $1
+      else
+        @module_name = "FIXME: git-hook-update doesn't know how to handle '#{repo}' result for '#{repo_dir_spec}"
+      end
     end
 
     def type
