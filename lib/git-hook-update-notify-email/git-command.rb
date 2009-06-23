@@ -49,6 +49,8 @@ module GitHookUpdateNotifyEmail
       	@module_name = File.basename(Dir.pwd)
       when /(.*?)((\.git\/)?\.git)$/
         @module_name = $1
+      when /.*\/(..*?)$/
+        @module_name = $1
       else
         @module_name = "FIXME: git-hook-update doesn't know how to handle '#{repo}' result for '#{repo_dir_spec}"
       end
