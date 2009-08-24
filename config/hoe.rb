@@ -2,17 +2,17 @@ require 'git-hook-update-notify-email/version'
 
 AUTHOR = 'Cyril Mougel'  # can also be an array of Authors
 EMAIL = "cyril.mougel@jtek.fr"
-DESCRIPTION = "send by email all diff in hook update"
+DESCRIPTION = "update hook sending email diff"
 GEM_NAME = 'git-hook-update-notify-email' # what ppl will type to install your gem
 RUBYFORGE_PROJECT = 'git-hook-update-notify-email' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 EXTRA_DEPENDENCIES = [
   ['RedCloth', '>= 3.0.4'],
-  ['actionmailer', '~> 2.2.2'],
-  ['activesupport', '~> 2.2.2'],
+  ['actionmailer', '>= 2.2.2'],
+  ['activesupport', '>= 2.2.2'],
   ['trollop', '>= 1.9.0'],
-  ['coderay', '~> 0.8.260'],
+  ['coderay', '>= 0.8.260'],
 ]    # An array of rubygem dependencies [name, version]
 
 @config_file = "~/.rubyforge/user-config.yml"
@@ -54,7 +54,8 @@ end
 
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.new(GEM_NAME, VERS) do |p|
+$hoe = Hoe.spec(GEM_NAME) do |p|
+  p.version = VERS
   p.developer(AUTHOR, EMAIL)
   p.description = DESCRIPTION
   p.summary = DESCRIPTION
@@ -67,7 +68,7 @@ $hoe = Hoe.new(GEM_NAME, VERS) do |p|
   p.changes = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   p.extra_deps = EXTRA_DEPENDENCIES
 
-    #p.spec_extras = {}    # A hash of extra values to set in the gemspec.
+  #p.spec_extras = {}    # A hash of extra values to set in the gemspec.
   end
 
 CHANGES = $hoe.paragraphs_of('History.txt', 0..1).join("\\n\\n")
