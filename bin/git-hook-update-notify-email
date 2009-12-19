@@ -2,7 +2,7 @@
 
 
 $:.unshift File.dirname(__FILE__) + '/../lib'
-require 'actionmailer'
+require 'action_mailer'
 require 'git-hook-update-notify-email'
 require 'trollop'
 
